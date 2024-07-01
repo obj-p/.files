@@ -1,7 +1,9 @@
-tap "railwaycat/emacsmacport"
+brew "pre-commit"
 
-brew "emacs-mac", args: ["with-native-comp"]
+# Emacs
+brew "gcc"
 brew "findutils"
 brew "fd"
-brew "pre-commit"
+brew "libgccjit"
+
 cask "karabiner-elements"
