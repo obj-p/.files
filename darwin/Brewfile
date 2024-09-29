@@ -1,0 +1,11 @@
+# Apps
+cask "karabiner-elements"
+cask "keepingyouawake"
+cask "mitmproxy"
+cask "rectangle"
+
+# Git
+brew "git"
+
+# Python
+brew "pipx"

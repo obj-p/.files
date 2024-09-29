@@ -1,5 +1,6 @@
 # Emacs
-eln-cache/
+emacs/*
+!emacs/init.el
 
 # MacOS
 .DS_Store

@@ -1,9 +1,5 @@
-.PHONY: brew
-brew:
-	brew bundle --no-lock
+OS := $(shell uname -s)
 
-.PHONY: emacs
-emacs:
-	brew tap railwaycat/emacsmacport
-	brew install emacs-mac --with-native-comp
-cp -a $(shell brew --prefix)/emacs-mac/Emacs.app /Applications:
+ifeq ($(OS), Darwin)
+	include darwin/Darwin.mk
+endif
