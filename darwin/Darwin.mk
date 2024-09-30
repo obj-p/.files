@@ -4,22 +4,22 @@ FORMULA     := $(shell grep 'brew' $(CURRENT_DIR)/Brewfile | sed 's/brew "\(.*\)
 
 .PHONY: brew
 brew:
-	brew bundle --no-lock
+	@brew bundle --no-lock
 
 .PHONY: $(CASKS)
 $(CASKS):
-	brew install --cask $@
+	@brew install --cask $@
 
 .PHONY: emacs
 emacs:
-	brew install fd findutils gcc libgccjit
-	brew tap railwaycat/emacsmacport
-	brew install emacs-mac --with-native-comp
-	cp -a $(shell brew --prefix)/emacs-mac/Emacs.app /Applications
+	@brew install fd findutils gcc libgccjit
+	@brew tap railwaycat/emacsmacport
+	@brew install emacs-mac --with-native-comp
+	@cp -a $(shell brew --prefix)/emacs-mac/Emacs.app /Applications
 
 .PHONY: $(FORMULA)
 $(FORMULA):
-	brew install $@
+	@brew install $@
 
 .PHONY: make-zsh-completion
 make-zsh-completion:
@@ -28,4 +28,4 @@ make-zsh-completion:
 
 .PHONY: pre-commit
 pre-commit:
-	pipx install pre-commit
+	@pipx install pre-commit
