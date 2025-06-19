@@ -1,6 +1,2 @@
-# Emacs
-emacs/*
-!emacs/init.el
-
 # MacOS
 .DS_Store

@@ -1,4 +1,4 @@
-LINKS := emacs nvim
+LINKS := nvim
 OS    := $(shell uname -s)
 
 ifeq ($(OS), Darwin)
@@ -7,8 +7,12 @@ endif
 
 .PHONY: clean
 clean:
-	@$(foreach link,$(LINKS),rm ~/.config/$(link);)
+	@bash ./scripts/symlinks.sh clean
 
 .PHONY: links
 links:
-	@$(foreach link,$(LINKS),ln -nsf $(abspath ./$(link)) ~/.config/$(link);)
+	@bash ./scripts/symlinks.sh
+
+.PHONY: pipx
+pipx:
+	@bash ./scripts/pipx.sh
