@@ -1,10 +1,3 @@
-LINKS := nvim
-OS    := $(shell uname -s)
-
-ifeq ($(OS), Darwin)
-	include darwin/Darwin.mk
-endif
-
 .PHONY: clean
 clean:
 	@bash ./scripts/symlinks.sh clean
