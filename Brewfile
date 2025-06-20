@@ -1,5 +1,6 @@
 cask_args appdir: "/Applications"
 
+brew "coreutils"
 brew "fd"
 brew "fzf"
 brew "gh"
@@ -7,12 +8,18 @@ brew "git", link: true
 brew "git-lfs"
 brew "go"
 brew "jenv"
+brew "jq"
+brew "luarocks"
 brew "make", link: true
 brew "mint"
 brew "neovim"
 brew "pipx"
+brew "rbenv"
+brew "rg"
 brew "ripgrep"
 brew "tmux"
+brew "xcbeautify"
+brew "xcode-build-server"
 
 cask "corretto@21"
 cask "karabiner-elements"

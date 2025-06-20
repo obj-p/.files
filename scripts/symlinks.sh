@@ -4,7 +4,7 @@ ACTION="$1"
 LINKS=(
     "nvim:~/.config/nvim"
     "Brewfile:~/Brewfile"
-    zshrc:~/.zshrc
+    "zprofile:~/.zprofile"
 )
 
 for entry in "${LINKS[@]}"; do

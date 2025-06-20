@@ -2,6 +2,7 @@
 
 DEPENDENCIES=(
     "pre-commit"
+    "pymobiledevice3"
 )
 
 for entry in "${DEPENDENCIES[@]}"; do
