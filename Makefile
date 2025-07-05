@@ -10,6 +10,10 @@ ruby:
 links:
 	@bash ./scripts/symlinks.sh
 
+.PHONY: node
+node:
+	@bash ./scripts/node.sh
+
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
 .PHONY: nvm
 nvm:
