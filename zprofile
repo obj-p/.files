@@ -8,6 +8,9 @@ compinit -i
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Claude
+export PATH="$HOME/.claude/local:$PATH"
+
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"

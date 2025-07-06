@@ -5,6 +5,7 @@ LINKS=(
     "nvim:~/.config/nvim"
     "Brewfile:~/Brewfile"
     "zprofile:~/.zprofile"
+    "tmux.conf:~/.tmux.conf"
 )
 
 for entry in "${LINKS[@]}"; do
