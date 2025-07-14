@@ -21,6 +21,8 @@ brew "tmux"
 brew "xcbeautify"
 brew "xcode-build-server"
 
+cask "1password-cli"
+cask "container"
 cask "corretto@21"
 cask "karabiner-elements"
 cask "keepingyouawake"

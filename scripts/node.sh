@@ -11,6 +11,7 @@ fi
 
 PACKAGES=(
     "@anthropic-ai/claude-code"
+    "@devcontainers/cli"
     "npm@11.4.2"
 )
 
