@@ -1,5 +1,8 @@
 cask_args appdir: "/Applications"
 
+tap "cirruslabs/cli"
+
+brew "cirruslabs/cli/tart"
 brew "coreutils"
 brew "fd"
 brew "fzf"
