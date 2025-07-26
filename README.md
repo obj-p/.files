@@ -78,3 +78,9 @@ To create symlinks for the dotfiles.
 ```sh
 make links
 ```
+
+### Install Homewbrew dependencies
+
+```sh
+cd ~ && brew bundle
+```

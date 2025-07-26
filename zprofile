@@ -18,6 +18,10 @@ eval "$(jenv init -)"
 # JetBrains
 export PATH="$PATH:/Users/jasonprasad/Library/Application Support/JetBrains/Toolbox/scripts"
 
+# Go
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
 # make
 zstyle ':completion:*:make:*:targets' call-command true
 zstyle ':completion:*:*:make:*' tag-order 'targets'

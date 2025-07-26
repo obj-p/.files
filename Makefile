@@ -22,3 +22,7 @@ nvm:
 .PHONY: pipx
 pipx:
 	@bash ./scripts/pipx.sh
+
+.PHONY: ruby
+ruby:
+	@bash ./scripts/ruby.sh
