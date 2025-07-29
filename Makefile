@@ -2,9 +2,9 @@
 clean:
 	@bash ./scripts/symlinks.sh clean
 
-.PHONY: ruby
-ruby:
-	@bash ./scripts/ruby.sh
+.PHONY: go
+go:
+	@bash ./scripts/go.sh
 
 .PHONY: links
 links:
