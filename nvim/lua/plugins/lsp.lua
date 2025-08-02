@@ -37,6 +37,8 @@ return {
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 				end,
 			})
+
+			vim.lsp.enable("kotlin_lsp")
 		end,
 	},
 }

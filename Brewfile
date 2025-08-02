@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 tap "cirruslabs/cli"
 tap "hashicorp/tap"
+tap "jetbrains/utils"
 
 brew "cirruslabs/cli/tart"
 brew "coreutils"
@@ -12,6 +13,7 @@ brew "git", link: true
 brew "git-lfs"
 brew "go"
 brew "hashicorp/tap/packer"
+brew "kotlin-lsp"
 brew "jenv"
 brew "jq"
 brew "luarocks"
