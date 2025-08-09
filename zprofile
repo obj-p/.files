@@ -11,6 +11,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Claude
 export PATH="$HOME/.claude/local:$PATH"
 
+# direnv
+eval "$(direnv hook bash)"
+
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
