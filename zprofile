@@ -26,8 +26,8 @@ export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # make
-zstyle ':completion:*:make:*:targets' call-command true
-zstyle ':completion:*:*:make:*' tag-order 'targets'
+zstyle ":completion:*:make:*:targets" call-command true
+zstyle ":completion:*:*:make:*" tag-order "targets"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -39,3 +39,9 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # rbenv
 eval "$(rbenv init - --no-rehash zsh)"
+
+# neovim
+export EDITOR="nvim"
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line

@@ -1,1 +1,0 @@
-require("editor/line-numbers")
