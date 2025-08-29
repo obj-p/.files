@@ -12,7 +12,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="$HOME/.claude/local:$PATH"
 
 # direnv
-eval "$(direnv hook bash)"
+eval "$(direnv hook zsh)"
 
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
@@ -41,7 +41,9 @@ export PATH="$HOME/.local/bin:$PATH"
 eval "$(rbenv init - --no-rehash zsh)"
 
 # neovim
-export EDITOR="nvim"
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+# zoxide
+eval "$(zoxide init zsh)"
