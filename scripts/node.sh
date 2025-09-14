@@ -12,6 +12,8 @@ fi
 PACKAGES=(
     "@anthropic-ai/claude-code"
     "@devcontainers/cli"
+    "@elgato/cli"
+    "@openai/codex"
     "npm@11.4.2"
 )
 
