@@ -40,6 +40,7 @@ return {
 			vim.lsp.enable("gopls")
 			vim.lsp.enable("kotlin_lsp")
 			vim.lsp.enable("sourcekit")
+			vim.lsp.enable("ts_ls")
 		end,
 	},
 }
