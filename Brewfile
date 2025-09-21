@@ -4,6 +4,7 @@ tap "cirruslabs/cli"
 tap "hashicorp/tap"
 tap "jetbrains/utils"
 
+brew "atuin"
 brew "cirruslabs/cli/tart"
 brew "coreutils"
 brew "delve"

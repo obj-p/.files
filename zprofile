@@ -8,6 +8,9 @@ compinit -i
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Atuin
+eval "$(atuin init zsh)"
+
 # Claude
 export PATH="$HOME/.claude/local:$PATH"
 
