@@ -2,29 +2,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
-			lspconfig.gopls.setup({
-				settings = {
-					gopls = {
-						completeUnimported = true,
-						usePlaceholders = true,
-						analyses = {
-							unusedparams = true,
-						},
-					},
-				},
-			})
-
-			lspconfig.sourcekit.setup({
-				capabilities = {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
-					},
-				},
-			})
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP Actions",
 				callback = function(args)
@@ -38,7 +15,31 @@ return {
 				end,
 			})
 
+			vim.lsp.config("gopls", {
+				settings = {
+					gopls = {
+						completeUnimported = true,
+						usePlaceholders = true,
+						analyses = {
+							unusedparams = true,
+						},
+					},
+				},
+			})
+
+			vim.lsp.config("sourcekit", {
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				},
+			})
+
+			vim.lsp.enable("gopls")
 			vim.lsp.enable("kotlin_lsp")
+			vim.lsp.enable("sourcekit")
 		end,
 	},
 }
