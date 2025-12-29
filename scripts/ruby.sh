@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if ! command -v rbenv &> /dev/null; then
-    echo "Error: rbenv is not installed."
+if ! command -v mise &> /dev/null; then
+    echo "Error: mise is not installed."
     exit 1
 fi
 
@@ -11,13 +11,14 @@ GEMS=(
 
 GLOBAL_VERSION="3.4.4"
 
-if ! rbenv versions --bare | grep -qx "$GLOBAL_VERSION"; then
-    rbenv install "$GLOBAL_VERSION"
-    rbenv global "$GLOBAL_VERSION"
+# Install Ruby if not already installed
+if ! mise ls ruby | grep -q "$GLOBAL_VERSION"; then
+    mise use --global "ruby@$GLOBAL_VERSION"
 fi
 
+# Install global gems
 for gem in "${GEMS[@]}"; do
-    if ! gem list -i "$gem" > /dev/null; then
-        gem install "$gem"
+    if ! mise exec -- gem list -i "$gem" > /dev/null 2>&1; then
+        mise exec -- gem install "$gem"
     fi
 done
