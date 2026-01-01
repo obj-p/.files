@@ -2,10 +2,9 @@
 clean:
 	@bash ./scripts/symlinks.sh clean
 
-.PHONY: claude-commands
-claude-commands:
-	@mkdir -p ~/.claude/commands
-	@cp claude/commands/* ~/.claude/commands
+.PHONY: claude
+claude:
+	@bash ./scripts/claude.sh
 
 .PHONY: go
 go:

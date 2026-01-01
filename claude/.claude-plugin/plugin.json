@@ -1,0 +1,8 @@
+{
+  "name": "dotfiles",
+  "description": "Personal commands and workflows",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jason Prasad"
+  }
+}
