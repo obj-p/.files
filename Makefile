@@ -11,6 +11,10 @@ claude-commands:
 go:
 	@bash ./scripts/go.sh
 
+.PHONY: java
+java:
+	@bash ./scripts/java.sh
+
 .PHONY: links
 links:
 	@bash ./scripts/symlinks.sh
