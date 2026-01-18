@@ -1,5 +1,10 @@
 {
   "name": "dotfiles",
   "description": "Personal Claude Code commands and skills",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
 }
