@@ -1,0 +1,16 @@
+{
+  "name": "dotfiles-marketplace",
+  "owner": {
+    "name": "obj-p"
+  },
+  "metadata": {
+    "description": "Personal dotfiles plugins"
+  },
+  "plugins": [
+    {
+      "name": "dotfiles",
+      "source": "..",
+      "description": "Personal Claude Code commands and skills"
+    }
+  ]
+}
