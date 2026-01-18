@@ -11,6 +11,7 @@ PACKAGES=(
     "@elgato/cli"
     "@openai/codex"
     "npm@11.4.2"
+    "@google/gemini-cli"
 )
 
 GLOBAL_VERSION="22.17.0"
