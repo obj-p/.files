@@ -33,6 +33,7 @@ brew "zoxide"
 
 cask "1password-cli"
 cask "container"
+cask "google-chrome"
 cask "karabiner-elements"
 cask "keepingyouawake"
 cask "iterm2"
