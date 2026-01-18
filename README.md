@@ -37,9 +37,11 @@ Paste the following.
 
 
 ```txt
-Host github.com
+Host *
   AddKeysToAgent yes
   UseKeychain yes
+
+Host github.com
   IdentityFile ~/.ssh/github_ed25519
 ```
 
