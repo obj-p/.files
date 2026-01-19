@@ -1,0 +1,8 @@
+{
+  "name": "dotfiles",
+  "description": "Personal Claude Code commands and skills",
+  "version": "1.0.0",
+  "author": {
+    "name": "obj-p"
+  }
+}

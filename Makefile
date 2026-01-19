@@ -4,9 +4,7 @@ clean:
 
 .PHONY: claude
 claude:
-	@claude config add extraKnownMarketplaces.dotfiles-marketplace.source.source directory
-	@claude config add extraKnownMarketplaces.dotfiles-marketplace.source.path $(CURDIR)/claude
-	@claude config add enabledPlugins.dotfiles@dotfiles-marketplace true
+	@bash ./scripts/claude.sh $(CURDIR)/claude
 
 .PHONY: go
 go:

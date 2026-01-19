@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "dotfiles",
-      "source": "..",
+      "source": "./plugins/dotfiles",
       "description": "Personal Claude Code commands and skills"
     }
   ]
