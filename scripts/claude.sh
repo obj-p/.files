@@ -24,7 +24,9 @@ echo "$existing" | jq --arg path "$PLUGIN_PATH" '
   .enabledPlugins["context7@dotfiles-marketplace"] = true |
   .enabledPlugins["playwright@dotfiles-marketplace"] = true |
   .enabledPlugins["chrome-devtools@dotfiles-marketplace"] = true |
-  .enabledPlugins["github@dotfiles-marketplace"] = true
+  .enabledPlugins["github@dotfiles-marketplace"] = true |
+  .enabledPlugins["code-review@dotfiles-marketplace"] = true |
+  .enabledPlugins["code-simplifier@dotfiles-marketplace"] = true
 ' > "$SETTINGS_FILE"
 
 echo "Claude plugin configured at $PLUGIN_PATH"
