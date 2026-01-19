@@ -14,6 +14,9 @@ eval "$(atuin init zsh)"
 # Claude
 export PATH="$HOME/.claude/local:$PATH"
 
+# GitHub
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)"
+
 # direnv
 eval "$(direnv hook zsh)"
 
