@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-PLUGIN_PATH="$1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STATUSLINE_PATH="$SCRIPT_DIR/claude_statusline.sh"
 SETTINGS_FILE="$HOME/.claude/settings.json"
@@ -14,12 +13,13 @@ rm -rf "$HOME/.claude/plugins/cache"
 # Start with empty settings (clean slate)
 existing="{}"
 
-# Configure marketplace and statusline only (plugins installed separately)
-echo "$existing" | jq --arg path "$PLUGIN_PATH" --arg statusline "$STATUSLINE_PATH" '
-  .extraKnownMarketplaces["dotfiles-marketplace"] = {
+# Configure marketplace and statusline
+echo "$existing" | jq --arg statusline "$STATUSLINE_PATH" '
+  .extraKnownMarketplaces["claude-plugins"] = {
     "source": {
-      "source": "directory",
-      "path": $path
+      "source": "github",
+      "owner": "obj-p",
+      "repo": "claude-plugins"
     }
   } |
   .statusLine = {
@@ -28,4 +28,4 @@ echo "$existing" | jq --arg path "$PLUGIN_PATH" --arg statusline "$STATUSLINE_PA
   }
 ' > "$SETTINGS_FILE"
 
-echo "Claude plugin configured at $PLUGIN_PATH"
+echo "Claude plugins configured from github:obj-p/claude-plugins"

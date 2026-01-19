@@ -29,7 +29,7 @@ clean: ## Remove symlinks
 
 .PHONY: claude
 claude: ## Configure Claude Code plugins
-	@bash ./scripts/claude.sh $(CURDIR)/claude
+	@bash ./scripts/claude.sh
 
 .PHONY: go
 go: ## Install Go tools
