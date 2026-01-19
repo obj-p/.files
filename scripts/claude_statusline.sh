@@ -13,13 +13,21 @@ json=$(cat)
 
 # Extract values using jq
 session_id=$(echo "$json" | jq -r '.session_id // "Unknown"')
+transcript=$(echo "$json" | jq -r '.transcript_path // ""')
+
+# Get custom title from transcript file if available, fallback to session_id
+conversation="$session_id"
+if [ -n "$transcript" ] && [ -f "$transcript" ]; then
+    custom_title=$(grep '"type":"custom-title"' "$transcript" 2>/dev/null | jq -r '.customTitle // empty' | tail -1)
+    [ -n "$custom_title" ] && conversation="$custom_title"
+fi
 cwd=$(echo "$json" | jq -r '.cwd // "Unknown"' | sed 's|.*/||')
 model=$(echo "$json" | jq -r '.model.display_name // "Unknown"')
-used_pct=$(echo "$json" | jq -r '.context_window.used_percentage // 0')
+context_pct=$(echo "$json" | jq -r '.context_window.used_percentage // 0')
 context_size=$(echo "$json" | jq -r '.context_window.context_window_size // 0')
 
 # Calculate remaining tokens
-remaining=$(echo "scale=0; $context_size * (100 - $used_pct) / 100" | bc)
+remaining=$(echo "scale=0; $context_size * (100 - $context_pct) / 100" | bc)
 
 # Format tokens with K suffix
 format_tokens() {
@@ -31,10 +39,10 @@ format_tokens() {
     fi
 }
 
-remaining_display=$(format_tokens "$remaining")
+tokens_remaining=$(format_tokens "$remaining")
 
 # Color based on usage
-pct_int=${used_pct%.*}
+pct_int=${context_pct%.*}
 if [ "$pct_int" -lt 50 ]; then
     pct_color=$GREEN
 elif [ "$pct_int" -lt 80 ]; then
@@ -43,7 +51,7 @@ else
     pct_color=$RED
 fi
 
-pct_display=$(printf "%.0f" "$used_pct")
+context_pct=$(printf "%.0f" "$context_pct")
 
 printf "${MAGENTA}%s${RESET} | ${CYAN}%s${RESET} | %s | Context ${pct_color}%s%%${RESET} | Tokens ~%s\n" \
-    "$session_id" "$cwd" "$model" "$pct_display" "$remaining_display"
+    "$conversation" "$cwd" "$model" "$context_pct" "$tokens_remaining"
