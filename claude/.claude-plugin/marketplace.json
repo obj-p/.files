@@ -8,9 +8,29 @@
   },
   "plugins": [
     {
-      "name": "dotfiles",
-      "source": "./plugins/dotfiles",
-      "description": "Personal Claude Code commands and skills"
+      "name": "git",
+      "source": "./plugins/git",
+      "description": "Git-related commands and utilities"
+    },
+    {
+      "name": "context7",
+      "source": "./external_plugins/context7",
+      "description": "Upstash Context7 MCP server for up-to-date documentation lookup"
+    },
+    {
+      "name": "playwright",
+      "source": "./external_plugins/playwright",
+      "description": "Playwright MCP server for browser automation"
+    },
+    {
+      "name": "chrome-devtools",
+      "source": "./external_plugins/chrome-devtools",
+      "description": "Chrome DevTools MCP server for browser debugging and inspection"
+    },
+    {
+      "name": "github",
+      "source": "./external_plugins/github",
+      "description": "Official GitHub MCP server for repository management"
     }
   ]
 }

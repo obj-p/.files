@@ -5,12 +5,12 @@ SETTINGS_FILE="$HOME/.claude/settings.json"
 
 mkdir -p "$(dirname "$SETTINGS_FILE")"
 
-# Start with existing settings or empty object
-if [[ -f "$SETTINGS_FILE" ]]; then
-    existing=$(cat "$SETTINGS_FILE")
-else
-    existing="{}"
-fi
+# Cleanup plugin cache
+echo "Cleaning up plugin cache..."
+rm -rf "$HOME/.claude/plugins/cache"
+
+# Start with empty settings (clean slate)
+existing="{}"
 
 # Merge in the plugin configuration
 echo "$existing" | jq --arg path "$PLUGIN_PATH" '
@@ -20,7 +20,11 @@ echo "$existing" | jq --arg path "$PLUGIN_PATH" '
       "path": $path
     }
   } |
-  .enabledPlugins["dotfiles@dotfiles-marketplace"] = true
+  .enabledPlugins["git@dotfiles-marketplace"] = true |
+  .enabledPlugins["context7@dotfiles-marketplace"] = true |
+  .enabledPlugins["playwright@dotfiles-marketplace"] = true |
+  .enabledPlugins["chrome-devtools@dotfiles-marketplace"] = true |
+  .enabledPlugins["github@dotfiles-marketplace"] = true
 ' > "$SETTINGS_FILE"
 
 echo "Claude plugin configured at $PLUGIN_PATH"
