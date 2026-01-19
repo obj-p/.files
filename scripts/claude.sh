@@ -6,26 +6,15 @@ SETTINGS_FILE="$HOME/.claude/settings.json"
 
 mkdir -p "$(dirname "$SETTINGS_FILE")"
 
-# Cleanup plugin cache
-echo "Cleaning up plugin cache..."
-rm -rf "$HOME/.claude/plugins/cache"
+# Initialize settings file if it doesn't exist
+if [[ ! -f "$SETTINGS_FILE" ]]; then
+  echo "{}" > "$SETTINGS_FILE"
+fi
 
-# Start with empty settings (clean slate)
-existing="{}"
+# Configure statusline
+jq --arg cmd "$STATUSLINE_PATH" \
+  '.statusLine = {"type": "command", "command": $cmd}' \
+  "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
 
-# Configure marketplace and statusline
-echo "$existing" | jq --arg statusline "$STATUSLINE_PATH" '
-  .extraKnownMarketplaces["claude-plugins"] = {
-    "source": {
-      "source": "github",
-      "owner": "obj-p",
-      "repo": "claude-plugins"
-    }
-  } |
-  .statusLine = {
-    "type": "command",
-    "command": $statusline
-  }
-' > "$SETTINGS_FILE"
-
-echo "Claude plugins configured from github:obj-p/claude-plugins"
+# Add plugins marketplace
+claude plugin marketplace add obj-p/claude-plugins
