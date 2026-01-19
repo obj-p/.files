@@ -15,15 +15,17 @@ json=$(cat)
 session_id=$(echo "$json" | jq -r '.session_id // "Unknown"')
 transcript=$(echo "$json" | jq -r '.transcript_path // ""')
 
-# Get custom title and git branch from transcript
+# Get custom title from transcript
 conversation="$session_id"
-git_branch=""
 if [ -n "$transcript" ] && [ -f "$transcript" ]; then
     custom_title=$(grep '"type":"custom-title"' "$transcript" 2>/dev/null | jq -r '.customTitle // empty' | tail -1)
     [ -n "$custom_title" ] && conversation="$custom_title"
-    git_branch=$(grep '"gitBranch"' "$transcript" 2>/dev/null | tail -1 | jq -r '.gitBranch // empty')
 fi
-cwd=$(echo "$json" | jq -r '.cwd // "Unknown"' | sed 's|.*/||')
+
+# Get cwd and git branch
+cwd_full=$(echo "$json" | jq -r '.cwd // "Unknown"')
+git_branch=$(git -C "$cwd_full" rev-parse --abbrev-ref HEAD 2>/dev/null)
+cwd="${cwd_full##*/}"
 [ -n "$git_branch" ] && cwd="$cwd ($git_branch)"
 model=$(echo "$json" | jq -r '.model.display_name // "Unknown"')
 context_pct=$(echo "$json" | jq -r '.context_window.used_percentage // 0')
