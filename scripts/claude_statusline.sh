@@ -15,15 +15,13 @@ json=$(cat)
 session_id=$(echo "$json" | jq -r '.session_id // "Unknown"')
 transcript=$(echo "$json" | jq -r '.transcript_path // ""')
 
-# Get custom title, git branch, and edited files from transcript
+# Get custom title and git branch from transcript
 conversation="$session_id"
 git_branch=""
-edited_count=0
 if [ -n "$transcript" ] && [ -f "$transcript" ]; then
     custom_title=$(grep '"type":"custom-title"' "$transcript" 2>/dev/null | jq -r '.customTitle // empty' | tail -1)
     [ -n "$custom_title" ] && conversation="$custom_title"
     git_branch=$(grep '"gitBranch"' "$transcript" 2>/dev/null | tail -1 | jq -r '.gitBranch // empty')
-    edited_count=$(grep '"type":"file-history-snapshot"' "$transcript" 2>/dev/null | tail -1 | jq -r '.snapshot.trackedFileBackups | keys | length // 0')
 fi
 cwd=$(echo "$json" | jq -r '.cwd // "Unknown"' | sed 's|.*/||')
 [ -n "$git_branch" ] && cwd="$cwd ($git_branch)"
@@ -58,5 +56,5 @@ fi
 
 context_pct=$(printf "%.0f" "$context_pct")
 
-printf "${MAGENTA}%s${RESET} | ${CYAN}%s${RESET} | Edited %s | %s | Context ${pct_color}%s%%${RESET} | Tokens ~%s\n" \
-    "$conversation" "$cwd" "$edited_count" "$model" "$context_pct" "$tokens_remaining"
+printf "${MAGENTA}%s${RESET} | ${CYAN}%s${RESET} | %s | Context ${pct_color}%s%%${RESET} | Tokens ~%s\n" \
+    "$conversation" "$cwd" "$model" "$context_pct" "$tokens_remaining"
