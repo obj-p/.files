@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 PLUGIN_PATH="$1"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+STATUSLINE_PATH="$SCRIPT_DIR/claude_statusline.sh"
 SETTINGS_FILE="$HOME/.claude/settings.json"
 
 mkdir -p "$(dirname "$SETTINGS_FILE")"
@@ -13,7 +15,7 @@ rm -rf "$HOME/.claude/plugins/cache"
 existing="{}"
 
 # Configure marketplace and statusline only (plugins installed separately)
-echo "$existing" | jq --arg path "$PLUGIN_PATH" --arg statusline "$PLUGIN_PATH/statusline.sh" '
+echo "$existing" | jq --arg path "$PLUGIN_PATH" --arg statusline "$STATUSLINE_PATH" '
   .extraKnownMarketplaces["dotfiles-marketplace"] = {
     "source": {
       "source": "directory",
