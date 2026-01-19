@@ -12,21 +12,18 @@ rm -rf "$HOME/.claude/plugins/cache"
 # Start with empty settings (clean slate)
 existing="{}"
 
-# Merge in the plugin configuration
-echo "$existing" | jq --arg path "$PLUGIN_PATH" '
+# Configure marketplace and statusline only (plugins installed separately)
+echo "$existing" | jq --arg path "$PLUGIN_PATH" --arg statusline "$PLUGIN_PATH/statusline.sh" '
   .extraKnownMarketplaces["dotfiles-marketplace"] = {
     "source": {
       "source": "directory",
       "path": $path
     }
   } |
-  .enabledPlugins["git@dotfiles-marketplace"] = true |
-  .enabledPlugins["context7@dotfiles-marketplace"] = true |
-  .enabledPlugins["playwright@dotfiles-marketplace"] = true |
-  .enabledPlugins["chrome-devtools@dotfiles-marketplace"] = true |
-  .enabledPlugins["github@dotfiles-marketplace"] = true |
-  .enabledPlugins["code-review@dotfiles-marketplace"] = true |
-  .enabledPlugins["code-simplifier@dotfiles-marketplace"] = true
+  .statusLine = {
+    "type": "command",
+    "command": $statusline
+  }
 ' > "$SETTINGS_FILE"
 
 echo "Claude plugin configured at $PLUGIN_PATH"
