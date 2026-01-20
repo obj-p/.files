@@ -50,7 +50,7 @@ tokens_remaining=$(format_tokens "$remaining")
 pct_int=${context_pct%.*}
 if [ "$pct_int" -lt 50 ]; then
     pct_color=$GREEN
-elif [ "$pct_int" -lt 80 ]; then
+elif [ "$pct_int" -lt 70 ]; then
     pct_color=$YELLOW
 else
     pct_color=$RED
