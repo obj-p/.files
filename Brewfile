@@ -28,6 +28,7 @@ brew "ripgrep"
 brew "tmux"
 brew "tree"
 brew "tree-sitter"
+brew "tree-sitter-cli"
 brew "wakeonlan"
 brew "zoxide"
 
