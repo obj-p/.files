@@ -2,20 +2,20 @@
 
 ACTION="$1"
 LINKS=(
-    "nvim:~/.config/nvim"
-    "Brewfile:~/Brewfile"
-    "zprofile:~/.zprofile"
-    "tmux.conf:~/.tmux.conf"
+    "nvim:$HOME/.config/nvim"
+    "Brewfile:$HOME/Brewfile"
+    "mise.toml:$HOME/.config/mise/config.toml"
+    "zprofile:$HOME/.zprofile"
+    "tmux.conf:$HOME/.tmux.conf"
 )
 
 for entry in "${LINKS[@]}"; do
     IFS=":" read -r src dest <<< "$entry"
-    eval src="$src"
-    eval dest="$dest"
 
     if [[ "$ACTION" == "clean" ]]; then
         rm -f "$dest"
     else
+        mkdir -p "$(dirname "$dest")"
         ln -nsf "$(realpath "$src")" "$dest"
     fi
 done

@@ -6,7 +6,6 @@ if ! command -v pipx &> /dev/null; then
 fi
 
 DEPENDENCIES=(
-    "pre-commit"
     "pymobiledevice3"
 )
 
