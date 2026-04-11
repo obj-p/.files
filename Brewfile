@@ -1,8 +1,10 @@
 cask_args appdir: "/Applications"
 
+tap "getsentry/xcodebuildmcp"
 tap "hashicorp/tap"
 
 brew "atuin"
+brew "chafa"
 brew "coreutils"
 brew "delve"
 brew "direnv"
@@ -28,7 +30,9 @@ brew "tmux"
 brew "tree"
 brew "tree-sitter"
 brew "tree-sitter-cli"
+brew "vhs"
 brew "wakeonlan"
+brew "getsentry/xcodebuildmcp/xcodebuildmcp"
 brew "zoxide"
 
 cask "1password-cli"
