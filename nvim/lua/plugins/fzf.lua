@@ -18,11 +18,11 @@ return {
 				desc = "Find by grepping cwd",
 			},
 			{
-				"<leader>fr",
+				"<leader>fs",
 				function()
 					require("fzf-lua").lsp_live_workspace_symbols()
 				end,
-				desc = "Find by LSP references",
+				desc = "Find LSP workspace symbols",
 			},
 		},
 	},

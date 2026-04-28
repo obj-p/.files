@@ -1,50 +1,22 @@
 return {
 	{
-		"hrsh7th/nvim-cmp",
-		version = false,
+		"saghen/blink.cmp",
 		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-buffer",
+		version = "1.*",
+		dependencies = { "L3MON4D3/LuaSnip" },
+		opts = {
+			keymap = {
+				preset = "enter",
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+			},
+			snippets = { preset = "luasnip" },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+			completion = {
+				list = { selection = { preselect = true, auto_insert = false } },
+			},
 		},
-		config = function()
-			local cmp = require("cmp")
-			local opts = {
-				-- Where to get completion results from
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					{ name = "buffer" },
-					{ name = "path" },
-				}),
-				-- Make 'enter' key select the completion
-				mapping = cmp.mapping.preset.insert({
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-					["<tab>"] = cmp.mapping(function(original)
-						if cmp.visible() then
-							cmp.select_next_item() -- run completion selection if completing
-						else
-							original() -- run the original behavior if not completing
-						end
-					end, { "i", "s" }),
-					["<S-tab>"] = cmp.mapping(function(original)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						else
-							original()
-						end
-					end, { "i", "s" }),
-				}),
-				snippets = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-			}
-			cmp.setup(opts)
-		end,
 	},
-	{ "hrsh7th/cmp-nvim-lsp", lazy = true },
-	{ "hrsh7th/cmp-path", lazy = true },
-	{ "hrsh7th/cmp-buffer", lazy = true },
 }

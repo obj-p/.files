@@ -14,6 +14,18 @@ vim.opt.expandtab = true
 vim.opt.hidden = true
 vim.opt.wrap = false
 
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+	callback = function()
+		vim.cmd("silent! checktime")
+	end,
+})
+
+-- disable unused language providers
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99

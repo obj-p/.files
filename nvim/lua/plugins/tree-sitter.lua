@@ -1,20 +1,22 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
+		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.configs")
+			require("nvim-treesitter").install({
+				"go",
+				"kotlin",
+				"lua",
+				"python",
+				"swift",
+			})
 
-			configs.setup({
-				auto_install = true,
-				ensure_installed = {
-					"go",
-					"kotlin",
-					"lua",
-					"python",
-					"swift",
-				},
-				highlight = { enable = true },
-				sync_install = false,
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(args)
+					pcall(vim.treesitter.start, args.buf)
+				end,
 			})
 		end,
 	},
