@@ -12,6 +12,12 @@ vim.opt.autoread = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.hidden = true
+vim.opt.ignorecase = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.smartcase = true
+vim.opt.termguicolors = true
+vim.opt.undofile = true
 vim.opt.wrap = false
 
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
