@@ -12,6 +12,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(atuin init zsh)"
 
 # Claude
+export CLAUDE_CODE_NO_FLICKER=1
 export PATH="$HOME/.claude/local:$PATH"
 
 # GitHub
