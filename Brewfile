@@ -17,6 +17,7 @@ brew "hashicorp/tap/packer"
 brew "hermit"
 brew "JetBrains/utils/kotlin-lsp"
 brew "jq"
+brew "lazygit"
 brew "libyaml"
 brew "luarocks"
 brew "make", link: true

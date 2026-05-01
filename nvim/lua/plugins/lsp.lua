@@ -2,6 +2,8 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
+			local skip_format = { ts_ls = true }
+
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP Actions",
 				callback = function(args)
@@ -14,6 +16,30 @@ return {
 					vim.keymap.set("n", "gr", function()
 						require("fzf-lua").lsp_references()
 					end, opts)
+
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client then
+						return
+					end
+
+					if client:supports_method("textDocument/formatting") and not skip_format[client.name] then
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = args.buf,
+							callback = function()
+								vim.lsp.buf.format({ bufnr = args.buf, async = false, id = client.id })
+							end,
+						})
+					end
+
+					if client:supports_method("textDocument/inlayHint") then
+						vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+						vim.keymap.set("n", "<leader>ih", function()
+							vim.lsp.inlay_hint.enable(
+								not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }),
+								{ bufnr = args.buf }
+							)
+						end, opts)
+					end
 				end,
 			})
 
