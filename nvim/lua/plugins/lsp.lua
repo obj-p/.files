@@ -72,9 +72,27 @@ return {
 					"--completion-style=detailed",
 					"--function-arg-placeholders",
 				},
+				-- In SwiftPM packages, defer to sourcekit-lsp (it knows the
+				-- package's cxxSettings and spawns its own clangd internally).
+				root_dir = function(bufnr, on_dir)
+					local fname = vim.api.nvim_buf_get_name(bufnr)
+					local start = fname ~= "" and vim.fs.dirname(fname) or vim.uv.cwd()
+					if vim.fs.find("Package.swift", { upward = true, path = start })[1] then
+						return
+					end
+					local root = vim.fs.root(bufnr, {
+						".clangd",
+						".clang-tidy",
+						"compile_commands.json",
+						"compile_flags.txt",
+						".git",
+					})
+					on_dir(root or start)
+				end,
 			})
 
 			vim.lsp.config("sourcekit", {
+				filetypes = { "swift", "objective-c", "objective-cpp", "c", "cpp" },
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
