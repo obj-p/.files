@@ -40,6 +40,10 @@ return {
 							)
 						end, opts)
 					end
+
+					if client.name == "clangd" then
+						vim.keymap.set("n", "<leader>ch", "<Cmd>LspClangdSwitchSourceHeader<CR>", opts)
+					end
 				end,
 			})
 
