@@ -40,10 +40,64 @@ return {
 							)
 						end, opts)
 					end
+				end,
+			})
 
-					if client.name == "clangd" then
-						vim.keymap.set("n", "<leader>ch", "<Cmd>LspClangdSwitchSourceHeader<CR>", opts)
+			-- Source/header switch. Filetype-based, not LSP-based: works for
+			-- clangd, sourcekit-lsp (which doesn't implement clangd's
+			-- textDocument/switchSourceHeader extension), and no-LSP buffers.
+			-- Knows about SwiftPM's Sources/<Target>/include/ convention.
+			local source_exts = { "cpp", "cc", "cxx", "c++", "c", "m", "mm" }
+			local header_exts = { "h", "hpp", "hh", "hxx", "h++" }
+			local function find_counterpart(dir, stem, exts)
+				for _, ext in ipairs(exts) do
+					local path = dir .. "/" .. stem .. "." .. ext
+					if vim.uv.fs_stat(path) then
+						return path
 					end
+				end
+			end
+			local function switch_source_header()
+				local file = vim.api.nvim_buf_get_name(0)
+				if file == "" then
+					vim.notify("Buffer has no file", vim.log.levels.WARN)
+					return
+				end
+				local dir, name = vim.fs.dirname(file), vim.fs.basename(file)
+				local stem, ext = name:match("^(.+)%.([^.]+)$")
+				if not stem then
+					vim.notify("No extension on " .. name, vim.log.levels.WARN)
+					return
+				end
+				local is_header = vim.tbl_contains(header_exts, ext)
+				local candidates = is_header and source_exts or header_exts
+				local found = find_counterpart(dir, stem, candidates)
+				if not found then
+					-- SwiftPM: Sources/<Target>/include/Foo.h <-> Sources/<Target>/Foo.cpp
+					if is_header and vim.fs.basename(dir) == "include" then
+						found = find_counterpart(vim.fs.dirname(dir), stem, candidates)
+					elseif not is_header then
+						found = find_counterpart(dir .. "/include", stem, candidates)
+					end
+				end
+				if found then
+					vim.cmd.edit(vim.fn.fnameescape(found))
+				else
+					vim.notify(
+						"No matching " .. (is_header and "source" or "header") .. " for " .. name,
+						vim.log.levels.INFO
+					)
+				end
+			end
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "c", "cpp", "objc", "objcpp" },
+				callback = function(args)
+					vim.keymap.set("n", "<leader>ch", switch_source_header, {
+						buffer = args.buf,
+						noremap = true,
+						silent = true,
+						desc = "Switch source/header",
+					})
 				end,
 			})
 
@@ -72,6 +126,23 @@ return {
 					"--completion-style=detailed",
 					"--function-arg-placeholders",
 				},
+				-- In SwiftPM packages, defer to sourcekit-lsp (it knows the
+				-- package's cxxSettings and spawns its own clangd internally).
+				root_dir = function(bufnr, on_dir)
+					local fname = vim.api.nvim_buf_get_name(bufnr)
+					local start = fname ~= "" and vim.fs.dirname(fname) or vim.uv.cwd()
+					if vim.fs.find("Package.swift", { upward = true, path = start })[1] then
+						return
+					end
+					local root = vim.fs.root(bufnr, {
+						".clangd",
+						".clang-tidy",
+						"compile_commands.json",
+						"compile_flags.txt",
+						".git",
+					})
+					on_dir(root or start)
+				end,
 			})
 
 			vim.lsp.config("sourcekit", {
