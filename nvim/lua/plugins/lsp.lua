@@ -92,7 +92,6 @@ return {
 			})
 
 			vim.lsp.config("sourcekit", {
-				filetypes = { "swift", "objective-c", "objective-cpp", "c", "cpp" },
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
