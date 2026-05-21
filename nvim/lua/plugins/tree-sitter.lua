@@ -6,6 +6,8 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter").install({
+				"c",
+				"cpp",
 				"go",
 				"kotlin",
 				"lua",

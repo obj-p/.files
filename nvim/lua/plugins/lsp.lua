@@ -59,6 +59,17 @@ return {
 				},
 			})
 
+			vim.lsp.config("clangd", {
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--header-insertion=iwyu",
+					"--completion-style=detailed",
+					"--function-arg-placeholders",
+				},
+			})
+
 			vim.lsp.config("sourcekit", {
 				capabilities = {
 					workspace = {
@@ -69,6 +80,7 @@ return {
 				},
 			})
 
+			vim.lsp.enable("clangd")
 			vim.lsp.enable("gopls")
 			vim.lsp.enable("kotlin_lsp")
 			vim.lsp.enable("sourcekit")
