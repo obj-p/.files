@@ -10,6 +10,7 @@ return {
 				"cpp",
 				"go",
 				"kotlin",
+				"lean",
 				"lua",
 				"python",
 				"swift",

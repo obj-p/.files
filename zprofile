@@ -21,6 +21,9 @@ export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)"
 # direnv
 eval "$(direnv hook zsh)"
 
+# lean4
+export PATH="$HOME/.elan/bin:$PATH"
+
 # mise
 eval "$(mise activate zsh)"
 
