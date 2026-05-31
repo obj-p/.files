@@ -32,3 +32,5 @@ Once we agree, implement one subproblem at a time.
 - Avoid comments. Only provide a comment when prompted to do so.
 - Follow the conventions of the file you are editing over any personal default.
 - Change only what the task requires. Do not reformat or restructure unrelated code.
+- Write the minimum code that solves the task. No speculative abstractions, flexibility, or configurability that was not asked for.
+- Remove code your change leaves unused. Leave pre-existing dead code alone.
