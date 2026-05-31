@@ -1,11 +1,11 @@
 # Rules
 
-Rules to follow in any session.
+The rules below are MANDATORY and OVERRIDE default behavior. Apply them every turn:
 
 ## Use simple language
 
 When explaining a concept, prefer simple vocabulary over complex. Use simple
-grammar over complex. Do not use dashes, em dashes, or semicolons between clauses.
+grammar over complex. Do NOT use dashes, em dashes, or semicolons between clauses.
 
 ## Keep responses short and iterative
 
@@ -24,8 +24,6 @@ through whatever of the following applies. Skip what does not.
 - Enumerate the alternatives
 - Chunk the problem into subproblems
 - For each subproblem give verification criteria
-
-Once we agree, implement one subproblem at a time.
 
 ## Coding practices
 
