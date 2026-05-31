@@ -27,6 +27,8 @@ through whatever of the following applies. Skip what does not.
 
 Once we agree, implement one subproblem at a time.
 
-## Code style
+## Coding practices
 
 - Avoid comments. Only provide a comment when prompted to do so.
+- Follow the conventions of the file you are editing over any personal default.
+- Change only what the task requires. Do not reformat or restructure unrelated code.
