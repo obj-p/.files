@@ -1,7 +1,7 @@
 # Rules
 
 The rules below are MANDATORY and OVERRIDE default behavior. Apply them every
-turn:
+turn.
 
 ## Use simple language
 
