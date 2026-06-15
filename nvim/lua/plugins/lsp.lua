@@ -145,6 +145,12 @@ return {
 				end,
 			})
 
+			vim.lsp.config("starpls", {
+				cmd = function(dispatchers, config)
+					return vim.lsp.rpc.start({ "starpls" }, dispatchers, { cwd = config.root_dir })
+				end,
+			})
+
 			vim.lsp.config("sourcekit", {
 				capabilities = {
 					workspace = {
@@ -159,6 +165,7 @@ return {
 			vim.lsp.enable("gopls")
 			vim.lsp.enable("kotlin_lsp")
 			vim.lsp.enable("sourcekit")
+			vim.lsp.enable("starpls")
 			vim.lsp.enable("ts_ls")
 		end,
 	},
