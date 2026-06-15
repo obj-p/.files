@@ -101,6 +101,30 @@ return {
 				end,
 			})
 
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "bzl",
+				callback = function(args)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = args.buf,
+						callback = function()
+							local input = table.concat(vim.api.nvim_buf_get_lines(args.buf, 0, -1, false), "\n")
+							local result = vim.system(
+								{ "buildifier", "-path=" .. vim.api.nvim_buf_get_name(args.buf) },
+								{ stdin = input }
+							):wait()
+							if result.code ~= 0 or not result.stdout then
+								return
+							end
+							local lines = vim.split(result.stdout, "\n")
+							if lines[#lines] == "" then
+								table.remove(lines)
+							end
+							vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, lines)
+						end,
+					})
+				end,
+			})
+
 			vim.lsp.config("*", {
 				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})

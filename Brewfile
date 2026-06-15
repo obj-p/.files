@@ -2,6 +2,8 @@ cask_args appdir: "/Applications"
 
 brew "atuin"
 brew "bazelisk"
+brew "buildifier"
+brew "buildozer"
 brew "chafa"
 brew "coreutils"
 brew "delve"
