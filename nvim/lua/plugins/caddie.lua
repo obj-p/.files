@@ -1,7 +1,6 @@
 return {
 	{
 		"obj-p/caddie.nvim",
-		dir = "~/Projects/caddie.nvim",
 		lazy = false,
 		keys = {
 			{ "<leader>cs", "<cmd>CaddieStart<cr>", desc = "Caddie start recording" },
