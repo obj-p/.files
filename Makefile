@@ -32,3 +32,7 @@ pipx: ## Install pipx packages
 .PHONY: tools
 tools: ## Install mise tools
 	@mise install
+
+.PHONY: tpm
+tpm: ## Install tmux plugins
+	@bash ./scripts/tpm.sh
