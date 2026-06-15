@@ -13,8 +13,11 @@ return {
 				"lean",
 				"lua",
 				"python",
+				"starlark",
 				"swift",
 			})
+
+			vim.treesitter.language.register("starlark", "bzl")
 
 			vim.api.nvim_create_autocmd("FileType", {
 				callback = function(args)
