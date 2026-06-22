@@ -1,6 +1,6 @@
 [tools]
 go = "latest"
 java = ["corretto-21", "zulu-17"]
-node = { version = "22.17.0", postinstall = "npm install -g @anthropic-ai/claude-code @devcontainers/cli @elgato/cli @openai/codex npm@11.4.2 @google/gemini-cli" }
+node = { version = "22.19.0", postinstall = "npm install -g @anthropic-ai/claude-code @devcontainers/cli @elgato/cli npm@11.4.2" }
 ruby = { version = "3.4.4", postinstall = "gem install xcodeproj" }
 "ubi:withered-magic/starpls" = "latest"
