@@ -21,6 +21,10 @@ clean: ## Remove symlinks
 claude: ## Configure Claude Code plugins
 	@bash ./scripts/claude.sh
 
+.PHONY: codex
+codex: ## Install Codex CLI
+	@bash ./scripts/codex.sh
+
 .PHONY: links
 links: ## Create symlinks
 	@bash ./scripts/symlinks.sh
