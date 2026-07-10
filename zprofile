@@ -13,6 +13,7 @@ eval "$(atuin init zsh)"
 
 # Claude
 export CLAUDE_CODE_NO_FLICKER=1
+export CLAUDE_CODE_SUBAGENT_MODEL=opus
 export PATH="$HOME/.claude/local:$PATH"
 
 # GitHub
