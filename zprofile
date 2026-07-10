@@ -17,7 +17,10 @@ export CLAUDE_CODE_SUBAGENT_MODEL=opus
 export PATH="$HOME/.claude/local:$PATH"
 
 # GitHub
-export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)"
+if token="$(gh auth token 2>/dev/null)"; then
+  export GITHUB_PERSONAL_ACCESS_TOKEN="$token"
+fi
+unset token
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -27,6 +30,9 @@ export PATH="$HOME/.elan/bin:$PATH"
 
 # mise
 eval "$(mise activate zsh)"
+
+# orbstack
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
 # Go
 export GOPATH="$HOME/go"
