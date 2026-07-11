@@ -9,7 +9,7 @@ compinit -i
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Atuin
-eval "$(atuin init zsh)"
+command -v atuin >/dev/null && eval "$(atuin init zsh)"
 
 # Claude
 export CLAUDE_CODE_NO_FLICKER=1
@@ -23,7 +23,7 @@ fi
 unset token
 
 # direnv
-eval "$(direnv hook zsh)"
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # lean4
 export PATH="$HOME/.elan/bin:$PATH"
@@ -51,6 +51,6 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 # zoxide
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 # zprof

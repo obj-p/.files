@@ -1,0 +1,9 @@
+cask_args appdir: "/Applications"
+
+brew "coreutils"
+brew "gh"
+brew "git", link: true
+brew "git-lfs"
+brew "jq"
+brew "make", link: true
+brew "mise"
