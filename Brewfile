@@ -1,5 +1,7 @@
 cask_args appdir: "/Applications"
 
+tap "macos-fuse-t/cask"
+
 brew "atuin"
 brew "bazelisk"
 brew "buildifier"
@@ -35,6 +37,8 @@ brew "zoxide"
 cask "1password-cli"
 cask "devcleaner"
 cask "font-jetbrains-mono-nerd-font"
+cask "fuse-t"
+cask "fuse-t-sshfs"
 cask "google-chrome"
 cask "karabiner-elements"
 cask "keepingyouawake"
