@@ -45,6 +45,9 @@ zstyle ":completion:*:*:make:*" tag-order "targets"
 # pipx
 export PATH="$HOME/.local/bin:$PATH"
 
+# plx
+command -v plx >/dev/null && eval "$(plx completion zsh)"
+
 # neovim
 autoload -z edit-command-line
 zle -N edit-command-line
