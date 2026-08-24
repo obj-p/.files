@@ -15,6 +15,3 @@ fi
 jq --arg cmd "$STATUSLINE_PATH" \
   '.statusLine = {"type": "command", "command": $cmd}' \
   "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
-
-# Add plugins marketplace
-claude plugin marketplace add obj-p/claude-plugins
