@@ -22,8 +22,12 @@ claude: ## Configure Claude Code plugins
 	@bash ./scripts/claude.sh
 
 .PHONY: codex
-codex: ## Install Codex CLI
+codex: ## Install and configure Codex CLI
 	@bash ./scripts/codex.sh
+
+.PHONY: codex-config
+codex-config: ## Disable anonymous Codex usage metrics
+	@python3 ./scripts/codex-config.py
 
 .PHONY: links
 links: ## Create symlinks

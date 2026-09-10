@@ -81,6 +81,15 @@ To create symlinks for the dotfiles.
 make links
 ```
 
+### Codex
+
+Install Codex CLI and disable anonymous usage metrics with `make codex`.
+To apply only the config change, run `make codex-config`.
+This requires Python 3.11 or newer and uses `CODEX_HOME/config.toml` when
+`CODEX_HOME` is set, otherwise `~/.codex/config.toml`.
+Existing settings are preserved. Restart Codex after changing the config.
+If the script cannot safely edit the TOML layout, it leaves the file unchanged.
+
 ### Install Homewbrew dependencies
 
 ```sh
