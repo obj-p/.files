@@ -83,8 +83,8 @@ make links
 
 ### Codex
 
-Install Codex CLI and disable anonymous usage metrics with `make codex`.
-To apply only the config change, run `make codex-config`.
+Install Codex CLI and disable anonymous usage metrics and terminal animations
+with `make codex`. To apply only the config changes, run `make codex-config`.
 This requires Python 3.11 or newer and uses `CODEX_HOME/config.toml` when
 `CODEX_HOME` is set, otherwise `~/.codex/config.toml`.
 Existing settings are preserved. Restart Codex after changing the config.

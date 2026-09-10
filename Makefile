@@ -26,7 +26,7 @@ codex: ## Install and configure Codex CLI
 	@bash ./scripts/codex.sh
 
 .PHONY: codex-config
-codex-config: ## Disable anonymous Codex usage metrics
+codex-config: ## Disable anonymous Codex usage metrics and terminal animations
 	@python3 ./scripts/codex-config.py
 
 .PHONY: links
