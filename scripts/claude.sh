@@ -11,7 +11,7 @@ if [[ ! -f "$SETTINGS_FILE" ]]; then
   echo "{}" > "$SETTINGS_FILE"
 fi
 
-# Configure statusline
+# Configure statusline and disable auto memory
 jq --arg cmd "$STATUSLINE_PATH" \
   '.statusLine = {"type": "command", "command": $cmd} | .autoMemoryEnabled = false' \
   "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
