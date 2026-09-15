@@ -13,5 +13,5 @@ fi
 
 # Configure statusline
 jq --arg cmd "$STATUSLINE_PATH" \
-  '.statusLine = {"type": "command", "command": $cmd}' \
+  '.statusLine = {"type": "command", "command": $cmd} | .autoMemoryEnabled = false' \
   "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
