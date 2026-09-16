@@ -10,4 +10,5 @@ brew "make", link: true
 brew "mise"
 brew "ripgrep"
 
+cask "1password"
 cask "keepingyouawake"
