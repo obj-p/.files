@@ -11,6 +11,7 @@ LINKS=(
     "nvim:$HOME/.config/nvim"
     "$BREWFILE:$HOME/Brewfile"
     "$MISE_CONFIG:$HOME/.config/mise/config.toml"
+    "zshenv:$HOME/.zshenv"
     "zprofile:$HOME/.zprofile"
     "tmux.conf:$HOME/.tmux.conf"
     "iterm2/profile.json:$HOME/Library/Application Support/iTerm2/DynamicProfiles/profile.json"
