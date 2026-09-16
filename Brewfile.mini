@@ -8,3 +8,5 @@ brew "git-lfs"
 brew "jq"
 brew "make", link: true
 brew "mise"
+
+cask "keepingyouawake"
