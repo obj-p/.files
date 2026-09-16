@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
 ACTION="$1"
+PROFILE_FILE="$HOME/.config/.files/profile"
+if [[ -n "$PROFILE" ]]; then
+    mkdir -p "$(dirname "$PROFILE_FILE")"
+    echo "$PROFILE" > "$PROFILE_FILE"
+elif [[ -f "$PROFILE_FILE" ]]; then
+    PROFILE="$(<"$PROFILE_FILE")"
+fi
 BREWFILE="Brewfile"
 MISE_CONFIG="mise.toml"
 if [[ "$PROFILE" == "mini" ]]; then

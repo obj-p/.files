@@ -81,6 +81,13 @@ To create symlinks for the dotfiles.
 make links
 ```
 
+On the Mac mini, pass the profile once. It is saved to `~/.config/.files/profile`
+and later runs pick it up without the flag.
+
+```sh
+PROFILE=mini make links
+```
+
 ### Codex
 
 Install Codex CLI and disable anonymous usage metrics and terminal animations
