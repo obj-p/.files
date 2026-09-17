@@ -12,3 +12,4 @@ brew "ripgrep"
 
 cask "1password"
 cask "keepingyouawake"
+cask "orbstack"
