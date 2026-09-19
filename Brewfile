@@ -1,7 +1,10 @@
 cask_args appdir: "/Applications"
 
 tap "macos-fuse-t/cask"
+tap "obj-p/private-tap", "git@github.com:obj-p/homebrew-private-tap.git"
+tap "obj-p/tap"
 
+brew "obj-p/private-tap/agent-skills"
 brew "atuin"
 brew "bazelisk"
 brew "buildifier"
@@ -32,6 +35,7 @@ brew "tree"
 brew "tree-sitter"
 brew "tree-sitter-cli"
 brew "vhs"
+brew "obj-p/tap/vzy"
 brew "zoxide"
 
 cask "1password-cli"
