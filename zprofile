@@ -9,7 +9,27 @@ compinit -i
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Atuin
-command -v atuin >/dev/null && eval "$(atuin init zsh)"
+command -v atuin >/dev/null && eval "$(atuin init zsh --disable-ctrl-r)"
+command -v fzf >/dev/null && source <(fzf --zsh)
+
+if [[ -o interactive ]] && command -v atuin >/dev/null && command -v fzf >/dev/null; then
+  fzf-atuin-history-widget() {
+    setopt localoptions pipefail
+    local selected
+    if selected=$(atuin search --cmd-only --print0 |
+      fzf --read0 --print0 --no-multi --scheme=history --height=40% \
+        --query="$LBUFFER" --bind=ctrl-r:toggle-sort); then
+      BUFFER=${selected%$'\0'}
+      CURSOR=${#BUFFER}
+    fi
+    zle reset-prompt
+  }
+
+  zle -N fzf-atuin-history-widget
+  bindkey -M emacs "^R" fzf-atuin-history-widget
+  bindkey -M viins "^R" fzf-atuin-history-widget
+  bindkey -M vicmd "^R" fzf-atuin-history-widget
+fi
 
 # Claude
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
