@@ -23,6 +23,7 @@ pre-commit: ## Run pre-commit
 
 .PHONY: brew
 brew: ## Install Homebrew dependencies from the linked Brewfile
+	@sed -nE 's/^tap "([^"]+)".*/\1/p' "$(BREWFILE)" | xargs -n1 brew trust
 	@brew bundle --file="$(BREWFILE)"
 
 .PHONY: brew-cleanup

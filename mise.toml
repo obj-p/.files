@@ -1,10 +1,21 @@
+# Rule: Homebrew owns the base layer (apps, fonts, OS hooks, and the CLIs
+# needed before mise exists or that other brew packages depend on). mise
+# owns dev tooling: runtimes, tools built on them, and editor tooling.
+# Exceptions stay in Homebrew because mise has no registry entry for
+# them (tree-sitter-cli, buildozer) or the mini profile needs them
+# without mise (bazelisk).
 [tools]
+buildifier = "latest"
 go = "latest"
+gradle = "latest"
+lua-language-server = "latest"
 java = ["corretto-21", "zulu-17"]
 node = { version = "22.19.0", postinstall = "npm install -g npm@11.4.2" }
 ruby = { version = "3.4.4", postinstall = "gem install xcodeproj" }
 staticcheck = "latest"
+swiftlint = "latest"
 uv = "latest"
+xcodegen = "latest"
 "github:withered-magic/starpls" = "latest"
 "go:github.com/go-delve/delve/cmd/dlv" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
