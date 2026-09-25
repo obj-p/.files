@@ -9,7 +9,7 @@ compinit -i
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Atuin
-command -v atuin >/dev/null && eval "$(atuin init zsh --disable-ctrl-r)"
+command -v atuin >/dev/null && eval "$(atuin init zsh --disable-ctrl-r --disable-ai)"
 command -v fzf >/dev/null && source <(fzf --zsh)
 
 if [[ -o interactive ]] && command -v atuin >/dev/null && command -v fzf >/dev/null; then
