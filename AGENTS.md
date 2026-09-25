@@ -45,3 +45,16 @@ first. Cover whichever of the following apply.
 - After the change works, make a cleanup pass before finishing. Remove code
   the change left unused and simplify anything the change made awkward. Stay
   within the code you touched, then run the check again.
+
+## Skill authoring
+
+Before creating or substantially revising a skill's `SKILL.md` or supporting
+resources, call the `Skill` tool with `skill: "skill-creator:skill-creator"` and
+follow its workflow. Do this before writing skill files. If the creator is
+unavailable, report that explicitly.
+
+Keep shared skill instructions portable across Codex and Claude, isolating any
+host-specific metadata or commands the requested workflow needs. When delegating
+skill-authoring work, include the creator's name or resolved SKILL.md path in the
+task. Respect any different creator assignment or no-skill condition explicitly
+specified for an evaluation.
