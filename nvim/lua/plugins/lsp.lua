@@ -2,8 +2,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local skip_format = { ts_ls = true }
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP Actions",
 				callback = function(args)
@@ -22,7 +20,7 @@ return {
 						return
 					end
 
-					if client:supports_method("textDocument/formatting") and not skip_format[client.name] then
+					if client:supports_method("textDocument/formatting") then
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							buffer = args.buf,
 							callback = function()
@@ -169,6 +167,20 @@ return {
 				end,
 			})
 
+			vim.lsp.config("lua_ls", {
+				settings = {
+					Lua = {
+						-- StyLua (pre-commit) owns formatting; lua_ls wraps lines differently.
+						format = { enable = false },
+						runtime = { version = "LuaJIT" },
+						workspace = {
+							checkThirdParty = false,
+							library = { vim.env.VIMRUNTIME .. "/lua" },
+						},
+					},
+				},
+			})
+
 			vim.lsp.config("starpls", {
 				cmd = function(dispatchers, config)
 					return vim.lsp.rpc.start({ "starpls" }, dispatchers, { cwd = config.root_dir })
@@ -187,10 +199,9 @@ return {
 
 			vim.lsp.enable("clangd")
 			vim.lsp.enable("gopls")
-			vim.lsp.enable("kotlin_lsp")
+			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("sourcekit")
 			vim.lsp.enable("starpls")
-			vim.lsp.enable("ts_ls")
 		end,
 	},
 }

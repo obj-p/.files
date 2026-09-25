@@ -9,8 +9,6 @@ return {
 				"c",
 				"cpp",
 				"go",
-				"kotlin",
-				"lean",
 				"lua",
 				"python",
 				"starlark",

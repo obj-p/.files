@@ -581,7 +581,7 @@
       "Right Option Key Sends": 0,
       "Rows": 25,
       "Screen": -1,
-      "Scrollback Lines": 1000,
+      "Scrollback Lines": 10000,
       "Selected Text Color": {
         "Red Component": 0.0,
         "Color Space": "sRGB",

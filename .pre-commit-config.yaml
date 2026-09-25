@@ -1,11 +1,11 @@
 repos:
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v2.1.0
+    rev: v2.5.2
     hooks:
       - id: stylua
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-yaml
@@ -14,6 +14,6 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1-1
     hooks:
       - id: shellcheck

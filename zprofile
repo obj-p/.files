@@ -1,80 +1,9 @@
-# zmodload zsh/zprof
-# time zsh -i -c exit
+# Sourced by login shells only, after /etc/zprofile has run path_helper,
+# which moves the system directories ahead of everything zshenv added.
+source "${ZDOTDIR:-$HOME}/.zshenv"
 
-# Completions
-autoload -U compinit
-compinit -i
-
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Atuin
-command -v atuin >/dev/null && eval "$(atuin init zsh --disable-ctrl-r --disable-ai)"
-command -v fzf >/dev/null && source <(fzf --zsh)
-
-if [[ -o interactive ]] && command -v atuin >/dev/null && command -v fzf >/dev/null; then
-  fzf-atuin-history-widget() {
-    setopt localoptions pipefail
-    local selected
-    if selected=$(atuin search --cmd-only --print0 |
-      fzf --read0 --print0 --no-multi --scheme=history --height=40% \
-        --query="$LBUFFER" --bind=ctrl-r:toggle-sort); then
-      BUFFER=${selected%$'\0'}
-      CURSOR=${#BUFFER}
-    fi
-    zle reset-prompt
-  }
-
-  zle -N fzf-atuin-history-widget
-  bindkey -M emacs "^R" fzf-atuin-history-widget
-  bindkey -M viins "^R" fzf-atuin-history-widget
-  bindkey -M vicmd "^R" fzf-atuin-history-widget
-fi
-
-# Claude
-export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
-export CLAUDE_CODE_NO_FLICKER=1
-export CLAUDE_CODE_SUBAGENT_MODEL=opus
-export PATH="$HOME/.claude/local:$PATH"
-
-# GitHub
-if token="$(gh auth token 2>/dev/null)"; then
+# GitHub (guard skips the gh fork in shells that already inherited it)
+if [[ -z "$GITHUB_PERSONAL_ACCESS_TOKEN" ]] && token="$(gh auth token 2>/dev/null)"; then
   export GITHUB_PERSONAL_ACCESS_TOKEN="$token"
 fi
 unset token
-
-# direnv
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-
-# lean4
-export PATH="$HOME/.elan/bin:$PATH"
-
-# mise
-eval "$(mise activate zsh)"
-
-# orbstack
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-
-# Go
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
-
-# make
-zstyle ":completion:*:make:*:targets" call-command true
-zstyle ":completion:*:*:make:*" tag-order "targets"
-
-# pipx
-export PATH="$HOME/.local/bin:$PATH"
-
-# plx
-command -v plx >/dev/null && eval "$(plx completion zsh)"
-
-# neovim
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-# zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
-
-# zprof

@@ -1,0 +1,5 @@
+# Only non-default values. See https://docs.atuin.sh/configuration/config/
+enter_accept = true
+
+[ai]
+enabled = false

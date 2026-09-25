@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-ACTION="$1"
+set -euo pipefail
+
+ACTION="${1:-}"
+PROFILE="${PROFILE:-}"
 PROFILE_FILE="$HOME/.config/.files/profile"
 if [[ -n "$PROFILE" ]]; then
     mkdir -p "$(dirname "$PROFILE_FILE")"
@@ -20,7 +23,9 @@ LINKS=(
     "$MISE_CONFIG:$HOME/.config/mise/config.toml"
     "zshenv:$HOME/.zshenv"
     "zprofile:$HOME/.zprofile"
-    "tmux.conf:$HOME/.tmux.conf"
+    "zshrc:$HOME/.zshrc"
+    "tmux.conf:$HOME/.config/tmux/tmux.conf"
+    "atuin/config.toml:$HOME/.config/atuin/config.toml"
     "iterm2/profile.json:$HOME/Library/Application Support/iTerm2/DynamicProfiles/profile.json"
 )
 
@@ -28,9 +33,15 @@ for entry in "${LINKS[@]}"; do
     IFS=":" read -r src dest <<< "$entry"
 
     if [[ "$ACTION" == "clean" ]]; then
-        rm -f "$dest"
+        if [[ -L "$dest" ]]; then
+            rm "$dest"
+        fi
     else
         mkdir -p "$(dirname "$dest")"
+        if [[ -e "$dest" && ! -L "$dest" ]]; then
+            mv "$dest" "$dest.bak"
+            echo "Backed up existing $dest to $dest.bak"
+        fi
         ln -nsf "$(realpath "$src")" "$dest"
     fi
 done

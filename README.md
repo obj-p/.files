@@ -69,13 +69,25 @@ pbcopy < ~/.ssh/github_ed25519.pub
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Open a new terminal afterwards, or run the `brew shellenv` line the installer
+prints, so `brew` is on the path for the steps below.
+
 ### .files
 
 ```sh
+mkdir -p ~/Projects && cd ~/Projects
 git clone git@github.com:obj-p/.files.git
+cd .files
 ```
 
-To create symlinks for the dotfiles.
+Run the full setup. It runs every step in order; `make help` lists them.
+
+```sh
+make install
+```
+
+Each step is also available on its own. To only create symlinks for the
+dotfiles:
 
 ```sh
 make links
@@ -97,8 +109,8 @@ This requires Python 3.11 or newer and uses `CODEX_HOME/config.toml` when
 Existing settings are preserved. Restart Codex after changing the config.
 If the script cannot safely edit the TOML layout, it leaves the file unchanged.
 
-### Install Homewbrew dependencies
+### Homebrew dependencies
 
-```sh
-cd ~ && brew bundle
-```
+`make install` runs `make brew`. Run it again after editing the Brewfile.
+`make brew-cleanup` shows what is installed but missing from the Brewfile
+and offers to remove it.
