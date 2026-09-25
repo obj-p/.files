@@ -100,6 +100,13 @@ and later runs pick it up without the flag.
 PROFILE=mini make links
 ```
 
+### Local-only configuration
+
+Per-machine git overrides belong in `~/.gitconfig.local`, which the managed
+`~/.gitconfig` includes and which stays out of the repo. The first `make links`
+on a machine that already has real files at a managed path moves them aside
+as `<file>.bak`.
+
 ### Codex
 
 Install Codex CLI and disable anonymous usage metrics and terminal animations

@@ -1,6 +1,13 @@
 [tools]
 go = "latest"
 java = ["corretto-21", "zulu-17"]
-node = { version = "22.19.0", postinstall = "npm install -g @devcontainers/cli @elgato/cli npm@11.4.2" }
+node = { version = "22.19.0", postinstall = "npm install -g npm@11.4.2" }
 ruby = { version = "3.4.4", postinstall = "gem install xcodeproj" }
+staticcheck = "latest"
+uv = "latest"
 "github:withered-magic/starpls" = "latest"
+"go:github.com/go-delve/delve/cmd/dlv" = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"npm:@devcontainers/cli" = "latest"
+"npm:@elgato/cli" = "latest"
+"pipx:pymobiledevice3" = "latest"

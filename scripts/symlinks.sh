@@ -26,8 +26,24 @@ LINKS=(
     "zshrc:$HOME/.zshrc"
     "tmux.conf:$HOME/.config/tmux/tmux.conf"
     "atuin/config.toml:$HOME/.config/atuin/config.toml"
+    "scripts/claude_statusline.sh:$HOME/.local/bin/claude_statusline.sh"
+    "gitconfig:$HOME/.gitconfig"
+    "karabiner:$HOME/.config/karabiner"
     "iterm2/profile.json:$HOME/Library/Application Support/iTerm2/DynamicProfiles/profile.json"
 )
+
+# Pre-flight: refuse to start unless every link can be made.
+for entry in "${LINKS[@]}"; do
+    IFS=":" read -r src dest <<< "$entry"
+    if [[ ! -e "$src" ]]; then
+        echo "Missing source $src for $dest" >&2
+        exit 1
+    fi
+    if [[ "$ACTION" != "clean" && -e "$dest" && ! -L "$dest" && -e "$dest.bak" ]]; then
+        echo "Both $dest and $dest.bak exist; move one aside and re-run" >&2
+        exit 1
+    fi
+done
 
 for entry in "${LINKS[@]}"; do
     IFS=":" read -r src dest <<< "$entry"
@@ -36,12 +52,13 @@ for entry in "${LINKS[@]}"; do
         if [[ -L "$dest" ]]; then
             rm "$dest"
         fi
-    else
-        mkdir -p "$(dirname "$dest")"
-        if [[ -e "$dest" && ! -L "$dest" ]]; then
-            mv "$dest" "$dest.bak"
-            echo "Backed up existing $dest to $dest.bak"
-        fi
-        ln -nsf "$(realpath "$src")" "$dest"
+        continue
     fi
+
+    mkdir -p "$(dirname "$dest")"
+    if [[ -e "$dest" && ! -L "$dest" ]]; then
+        mv "$dest" "$dest.bak"
+        echo "Moved existing $dest to $dest.bak (see README: Local-only configuration)"
+    fi
+    ln -nsf "$(realpath "$src")" "$dest"
 done

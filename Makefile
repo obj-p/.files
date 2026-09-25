@@ -34,7 +34,7 @@ clean: ## Remove symlinks
 	@bash ./scripts/symlinks.sh clean
 
 .PHONY: claude
-claude: ## Configure Claude Code plugins
+claude: ## Merge claude/settings.json into ~/.claude/settings.json
 	@bash ./scripts/claude.sh
 
 .PHONY: codex
@@ -45,20 +45,12 @@ codex: ## Install and configure Codex CLI
 codex-config: ## Disable anonymous Codex usage metrics and terminal animations
 	@python3 ./scripts/codex-config.py
 
-.PHONY: git-lfs
-git-lfs: ## Initialize git-lfs hooks and filters
-	@git lfs install --skip-repo
-
 .PHONY: install
-install: links brew tools git-lfs tpm claude bootstrap ## Full setup on a new machine, in order
+install: links brew tools tpm claude bootstrap ## Full setup on a new machine, in order
 
 .PHONY: links
 links: ## Create symlinks
 	@bash ./scripts/symlinks.sh
-
-.PHONY: pipx
-pipx: ## Install pipx packages
-	@bash ./scripts/pipx.sh
 
 .PHONY: tools
 tools: ## Install mise tools
