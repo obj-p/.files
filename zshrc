@@ -41,6 +41,43 @@ eval "$(mise activate zsh)"
 # orbstack
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
+# Claude Code: SSH sessions may not have access to the login Keychain.
+# Check on launch, rather than prompting during every SSH shell startup.
+claude() {
+  if [[ $OSTYPE != darwin* || -z ${SSH_CONNECTION-} || ! -o interactive || ! -t 0 || ! -t 1 ]]; then
+    command claude "$@"
+    return $?
+  fi
+
+  # Explicit authentication and maintenance commands should run as requested.
+  case ${1-} in
+    auth|auto-mode|daemon|doctor|gateway|install|logs|mcp|plugin|plugins|project|respawn|rm|setup-token|stop|kill|update|upgrade|ultrareview|self-hosted-runner)
+      command claude "$@"
+      return $?
+      ;;
+  esac
+
+  local arg auth_status=0
+  for arg in "$@"; do
+    case $arg in
+      --) break ;;
+      -h|--help|-v|--version|-p*|-cp|--print|--print=*|--bare|--bg|--background)
+        command claude "$@"
+        return $?
+        ;;
+    esac
+  done
+
+  # Exit 1 means logged out; other errors should not trigger a password prompt.
+  command claude auth status >/dev/null 2>&1 || auth_status=$?
+  if (( auth_status == 1 )); then
+    print -u2 -- "Claude's saved login is unavailable. Unlock your macOS login Keychain to try it again."
+    command security unlock-keychain "$HOME/Library/Keychains/login.keychain-db" || return $?
+  fi
+
+  command claude "$@"
+}
+
 # make
 zstyle ":completion:*:make:*:targets" call-command true
 zstyle ":completion:*:*:make:*" tag-order "targets"
@@ -55,5 +92,13 @@ bindkey "^X^E" edit-command-line
 
 # zoxide
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+# Prompt
+command -v starship >/dev/null && eval "$(starship init zsh)"
+
+# Autosuggestions, then syntax highlighting (it must be sourced last so it
+# can wrap the widgets everything above defined)
+source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" 2>/dev/null || :
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null || :
 
 # zprof

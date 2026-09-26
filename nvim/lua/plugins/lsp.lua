@@ -7,7 +7,6 @@ return {
 				callback = function(args)
 					local opts = { buffer = args.buf, noremap = true, silent = true }
 					vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-					vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -18,15 +17,6 @@ return {
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					if not client then
 						return
-					end
-
-					if client:supports_method("textDocument/formatting") then
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = args.buf,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = args.buf, async = false, id = client.id })
-							end,
-						})
 					end
 
 					if client:supports_method("textDocument/inlayHint") then
@@ -99,30 +89,6 @@ return {
 				end,
 			})
 
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "bzl",
-				callback = function(args)
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = args.buf,
-						callback = function()
-							local input = table.concat(vim.api.nvim_buf_get_lines(args.buf, 0, -1, false), "\n")
-							local result = vim.system(
-								{ "buildifier", "-path=" .. vim.api.nvim_buf_get_name(args.buf) },
-								{ stdin = input }
-							):wait()
-							if result.code ~= 0 or not result.stdout then
-								return
-							end
-							local lines = vim.split(result.stdout, "\n")
-							if lines[#lines] == "" then
-								table.remove(lines)
-							end
-							vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, lines)
-						end,
-					})
-				end,
-			})
-
 			vim.lsp.config("*", {
 				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})
@@ -170,7 +136,7 @@ return {
 			vim.lsp.config("lua_ls", {
 				settings = {
 					Lua = {
-						-- StyLua (pre-commit) owns formatting; lua_ls wraps lines differently.
+						-- conform runs StyLua; lua_ls would wrap lines differently.
 						format = { enable = false },
 						runtime = { version = "LuaJIT" },
 						workspace = {

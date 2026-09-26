@@ -107,6 +107,18 @@ Per-machine git overrides belong in `~/.gitconfig.local`, which the managed
 on a machine that already has real files at a managed path moves them aside
 as `<file>.bak`.
 
+### Claude Code over SSH
+
+The `claude` function in `zshrc` checks the saved login when starting Claude
+interactively over SSH on macOS. If Claude reports it is logged out, the function
+prompts to unlock the login Keychain with your Mac login password, then starts
+Claude. It does not store the password. Cancelling or failing the unlock stops
+the launch.
+
+Local terminals, scripts, print mode, help/version flags, and maintenance commands
+pass through without an unlock prompt. Use `command claude` to bypass the wrapper.
+Open a new shell or run `source ~/.zshrc` to load changes.
+
 ### Codex
 
 Install Codex CLI and disable anonymous usage metrics and terminal animations

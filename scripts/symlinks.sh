@@ -26,6 +26,8 @@ LINKS=(
     "zshrc:$HOME/.zshrc"
     "tmux.conf:$HOME/.config/tmux/tmux.conf"
     "atuin/config.toml:$HOME/.config/atuin/config.toml"
+    "starship.toml:$HOME/.config/starship.toml"
+    "lazygit/config.yml:$HOME/Library/Application Support/lazygit/config.yml"
     "scripts/claude_statusline.sh:$HOME/.local/bin/claude_statusline.sh"
     "gitconfig:$HOME/.gitconfig"
     "karabiner:$HOME/.config/karabiner"
